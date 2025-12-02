@@ -50,6 +50,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // Si tu as des données sensibles temporaires (comme un mot de passe en clair),
+        // tu peux les effacer ici. Sinon, laisse vide.
+        // Exemple : $this->plainPassword = null;
+    }
+
+
+    /**
      * A visual identifier that represents this user.
      *
      * @see UserInterface
@@ -102,7 +113,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __serialize(): array
     {
         $data = (array) $this;
-        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+        $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
 
         return $data;
     }
